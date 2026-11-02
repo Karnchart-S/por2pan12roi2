@@ -1,0 +1,582 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>แดชบอร์ด ป.2 พัน.12. รอ. ร้อย.2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap">
+<style id="css">
+/* Layout: navy unit banner, overview tiles, then a grid of section cards with a completion ring; one section opens into its own task detail view. */
+:root {
+  --bg: #f4f6f9;
+  --surface: #ffffff;
+  --fg: #15202e;
+  --muted: #5d6b7e;
+  --line: #dfe4ec;
+  --accent: #1f3a8a;
+  --accent-fg: #ffffff;
+  --accent-soft: #e6ecfb;
+  --banner: #1f3a8a;
+  --banner-fg: #ffffff;
+  --banner-muted: #c9d6f5;
+  --done: #1a7f56;
+  --done-bg: #e1f4ea;
+  --monthly: #8a6100;
+  --monthly-bg: #fdf0c4;
+  --monthly-dot: #e5a800;
+  --new: #c62828;
+  --new-bg: #fde8e8;
+  --danger: #b3261e;
+  --danger-bg: #fbe7e5;
+  --font: "IBM Plex Sans Thai", "Noto Sans Thai", "Sarabun", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1520; --surface: #172030; --fg: #e8edf5; --muted: #93a1b5; --line: #2a374b;
+    --accent: #8fb0ff; --accent-fg: #0f1520; --accent-soft: #1f2e50;
+    --banner: #1b2b57; --banner-fg: #ffffff; --banner-muted: #b5c4ea;
+    --done: #4fd19a; --done-bg: #123a2b;
+    --monthly: #f5d061; --monthly-bg: #46380a; --monthly-dot: #f5c542;
+    --new: #ff8a80; --new-bg: #4a1d1a;
+    --danger: #ff8a80; --danger-bg: #4a1d1a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1520; --surface: #172030; --fg: #e8edf5; --muted: #93a1b5; --line: #2a374b;
+  --accent: #8fb0ff; --accent-fg: #0f1520; --accent-soft: #1f2e50;
+  --banner: #1b2b57; --banner-fg: #ffffff; --banner-muted: #b5c4ea;
+  --done: #4fd19a; --done-bg: #123a2b;
+  --monthly: #f5d061; --monthly-bg: #46380a; --monthly-dot: #f5c542;
+    --new: #ff8a80; --new-bg: #4a1d1a;
+  --danger: #ff8a80; --danger-bg: #4a1d1a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 15px; line-height: 1.55;
+  padding-block: 20px 100px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:disabled { opacity: .6; cursor: default; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.banner { background: var(--banner); color: var(--banner-fg); border-radius: 14px; padding: 26px 26px 22px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+.eyebrow { font-size: 13px; color: var(--banner-muted); letter-spacing: .06em; }
+.banner h1 { font-size: 34px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; margin-top: 2px; }
+.asof { color: var(--banner-muted); font-size: 13px; text-align: center; }
+
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.tiles.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.tile .lab { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); flex: none; display: inline-block; }
+.tile .num { font-size: 32px; font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.tile .num small { font-size: 15px; font-weight: 500; color: var(--muted); margin-left: 4px; }
+.tile .note { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.dot.done, .pill.done .dot { background: var(--done); }
+.dot.monthly, .pill.monthly .dot { background: var(--monthly-dot); }
+.dot.new, .pill.new .dot { background: var(--new); }
+
+.sechead { display: flex; justify-content: space-between; align-items: baseline; gap: 8px 16px; flex-wrap: wrap; }
+.sechead h2 { font-size: 18px; font-weight: 600; }
+.sechead span { color: var(--muted); font-size: 13px; }
+
+.board { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+.bhead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 20px; padding: 16px 20px; border-bottom: 1px solid var(--line); background: var(--accent-soft); }
+.bhead h2 { font-size: 18px; font-weight: 600; }
+.bleg { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--muted); }
+.bleg span { display: inline-flex; align-items: center; gap: 6px; }
+.cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 0 -1px -1px 0; }
+.card { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; background: var(--surface); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 26px 12px 18px; min-width: 0; }
+.card:hover { background: var(--accent-soft); }
+.card .no { position: absolute; top: 10px; left: 10px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; }
+.card:hover .no { background: var(--surface); }
+.card h3 { font-size: 16px; font-weight: 600; overflow-wrap: anywhere; line-height: 1.3; }
+.card .s2 { font-size: 13px; color: var(--muted); }
+.card .leg { display: flex; gap: 6px; justify-content: center; }
+.cnt { min-width: 28px; padding: 1px 8px; border-radius: 999px; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.cnt.done { background: var(--done-bg); color: var(--done); }
+.cnt.monthly { background: var(--monthly-bg); color: var(--monthly); }
+.cnt.new { background: var(--new-bg); color: var(--new); }
+.bfoot { border-top: 1px solid var(--line); padding: 14px 20px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.bfoot .t { flex: 1 1 100%; font-weight: 600; font-size: 14px; }
+.bfoot input[type="text"] { flex: 2 1 220px; }
+.ring { flex: none; line-height: 0; }
+.sum { display: flex; flex-direction: column; gap: 12px; }
+.ring text { font-family: var(--font); font-weight: 700; fill: var(--fg); }
+.ring .trk { stroke: var(--line); }
+.ring .arc { stroke: var(--done); }
+
+.back { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-weight: 500; font-size: 14px; align-self: flex-start; padding: 4px 0; }
+.dhead { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+.dhead .t { min-width: 0; flex: 1 1 240px; }
+.dhead h2 { font-size: 24px; font-weight: 700; overflow-wrap: anywhere; }
+.dhead .s2 { color: var(--muted); font-size: 14px; margin-top: 2px; }
+.dhead .acts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.renamerow { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+
+.msg { border-radius: 8px; padding: 8px 12px; font-size: 14px; background: var(--danger-bg); color: var(--danger); }
+.msg.ok { background: var(--done-bg); color: var(--done); }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; min-width: 0; }
+.group { margin-top: 20px; }
+.group:first-child { margin-top: 0; }
+.group h3 { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.group h3 .n { margin-left: auto; color: var(--muted); font-weight: 400; font-size: 13px; }
+.task { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.task .name { flex: 1 1 220px; min-width: 0; overflow-wrap: anywhere; }
+.task .ctl { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pill { display: inline-flex; align-items: center; gap: 6px; border: 0; border-radius: 999px; padding: 3px 11px 3px 9px; font-size: 13px; font-weight: 500; white-space: nowrap; }
+.pill.done { background: var(--done-bg); color: var(--done); }
+.pill.monthly { background: var(--monthly-bg); color: var(--monthly); }
+.pill.new { background: var(--new-bg); color: var(--new); }
+.mchip { border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 2px 8px; font-size: 12px; color: var(--muted); white-space: nowrap; }
+.mchip.ok { color: var(--done); border-color: var(--done); }
+.mchip.wait { color: var(--new); border-color: var(--new); }
+.mini { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 2px 10px; font-size: 13px; }
+.mini:hover { border-color: var(--accent); }
+.mini.danger { color: var(--danger); }
+.mini.danger:hover { border-color: var(--danger); }
+.mini.sure { background: var(--danger); border-color: var(--danger); color: var(--surface); font-weight: 600; }
+.editrow { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--line); align-items: center; }
+input[type="text"], select, .search { border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 8px; padding: 6px 10px; font: inherit; font-size: 14px; min-width: 0; }
+.editrow input[type="text"] { flex: 2 1 200px; }
+.editrow select { flex: 1 1 130px; }
+.empty { color: var(--muted); padding: 24px 0; text-align: center; }
+
+form.add { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+form.add .t { flex: 1 1 100%; font-weight: 600; font-size: 14px; }
+form.add input[type="text"] { flex: 2 1 220px; }
+form.add select { flex: 1 1 150px; }
+.primary { background: var(--accent); color: var(--accent-fg); border: 0; border-radius: 8px; padding: 7px 16px; font-weight: 600; }
+.ghost { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 7px 14px; }
+.ghost.danger { color: var(--danger); }
+
+.savebar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  background: var(--surface); border-top: 2px solid var(--accent);
+  padding-top: 10px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: space-between; align-items: center;
+}
+.savebar .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .card { transition: background .15s ease; }
+  .ring .arc { transition: stroke-dasharray .4s ease; }
+}
+@media (max-width: 900px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tiles.three { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .banner h1 { font-size: 24px; } .banner { padding: 18px; } .tile .num { font-size: 26px; } .tiles.three .tile { padding: 12px; } .tiles.three .note { display: none; } }
+
+.vno { font-size: 17px; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+.vnote { color: var(--muted); font-size: 13px; margin-top: 1px; }
+</style>
+
+<div class="wrap" id="app"></div>
+
+<script id="data" type="application/json">{"next": 36, "updated": "2026-11-02T00:00:00.000Z", "depts": ["บก.ร้อย.", "ส่วนยิง", "ยานยนต์", "อาภรณ์ภัณฑ์", "อาวุธ", "แผนที่", "สื่อสาร", "ตรวจการณ์", "กำลังพลนายสิบ", "พลทหาร"], "tasks": [{"id": 1, "dept": "บก.ร้อย.", "name": "จัดทำแผนงานประจำปีของร้อย.", "status": "done", "m": ""}, {"id": 2, "dept": "บก.ร้อย.", "name": "รายงานสถานะประจำเดือนถึงกองพัน", "status": "monthly", "m": "2026-11"}, {"id": 3, "dept": "บก.ร้อย.", "name": "ตรวจสอบทะเบียนเอกสารของร้อย.", "status": "monthly", "m": ""}, {"id": 4, "dept": "บก.ร้อย.", "name": "จัดทำคำสั่งมอบหน้าที่ชุดใหม่", "status": "new", "m": ""}, {"id": 5, "dept": "ส่วนยิง", "name": "ทบทวนตารางการฝึกยิง", "status": "done", "m": ""}, {"id": 6, "dept": "ส่วนยิง", "name": "ตรวจสภาพและบำรุงรักษาปืนประจำเดือน", "status": "monthly", "m": ""}, {"id": 7, "dept": "ส่วนยิง", "name": "จัดทำแผนฝึกยิงประจำปี", "status": "new", "m": ""}, {"id": 8, "dept": "ยานยนต์", "name": "ปรับปรุงทะเบียนคุมยานพาหนะ", "status": "done", "m": ""}, {"id": 9, "dept": "ยานยนต์", "name": "ตรวจสภาพยานพาหนะประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 10, "dept": "ยานยนต์", "name": "ซ่อมบำรุงตามระยะ", "status": "monthly", "m": ""}, {"id": 11, "dept": "ยานยนต์", "name": "ขอเปลี่ยนอะไหล่ที่ชำรุด", "status": "new", "m": ""}, {"id": 12, "dept": "อาภรณ์ภัณฑ์", "name": "ปรับปรุงทะเบียนคุมอาภรณ์ภัณฑ์", "status": "done", "m": ""}, {"id": 13, "dept": "อาภรณ์ภัณฑ์", "name": "ตรวจนับเครื่องแบบและเครื่องใช้ประจำตัว", "status": "monthly", "m": "2026-11"}, {"id": 14, "dept": "อาภรณ์ภัณฑ์", "name": "เสนอขอเบิกเครื่องแบบทดแทน", "status": "new", "m": ""}, {"id": 15, "dept": "อาวุธ", "name": "ตรวจสภาพคลังอาวุธ", "status": "done", "m": ""}, {"id": 16, "dept": "อาวุธ", "name": "ตรวจนับอาวุธประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 17, "dept": "อาวุธ", "name": "ทบทวนทะเบียนคุมอาวุธ", "status": "monthly", "m": ""}, {"id": 18, "dept": "อาวุธ", "name": "ขอรับอุปกรณ์ทำความสะอาดอาวุธ", "status": "new", "m": ""}, {"id": 19, "dept": "แผนที่", "name": "ปรับปรุงแผนที่และข้อมูลพื้นที่ปฏิบัติการ", "status": "done", "m": ""}, {"id": 20, "dept": "แผนที่", "name": "ตรวจความถูกต้องของข้อมูลแผนที่ประจำเดือน", "status": "monthly", "m": ""}, {"id": 21, "dept": "แผนที่", "name": "จัดหาแผนที่ชุดใหม่", "status": "new", "m": ""}, {"id": 22, "dept": "สื่อสาร", "name": "ปรับปรุงทะเบียนอุปกรณ์สื่อสาร", "status": "done", "m": ""}, {"id": 23, "dept": "สื่อสาร", "name": "ตรวจเครื่องวิทยุและอุปกรณ์สื่อสารประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 24, "dept": "สื่อสาร", "name": "ทดสอบระบบสื่อสารสำรอง", "status": "new", "m": ""}, {"id": 25, "dept": "ตรวจการณ์", "name": "ปรับปรุงทะเบียนอุปกรณ์ตรวจการณ์", "status": "done", "m": ""}, {"id": 26, "dept": "ตรวจการณ์", "name": "ตรวจสภาพกล้องและอุปกรณ์ตรวจการณ์", "status": "monthly", "m": ""}, {"id": 27, "dept": "ตรวจการณ์", "name": "ฝึกทบทวนการตรวจการณ์", "status": "new", "m": ""}, {"id": 28, "dept": "กำลังพลนายสิบ", "name": "ปรับปรุงทะเบียนประวัติกำลังพล", "status": "done", "m": ""}, {"id": 29, "dept": "กำลังพลนายสิบ", "name": "รายงานยอดกำลังพลนายสิบประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 30, "dept": "กำลังพลนายสิบ", "name": "ตรวจสอบสิทธิ์และสวัสดิการ", "status": "monthly", "m": ""}, {"id": 31, "dept": "กำลังพลนายสิบ", "name": "เสนอแผนพัฒนาความรู้นายสิบ", "status": "new", "m": ""}, {"id": 32, "dept": "พลทหาร", "name": "ตรวจสอบสิทธิ์และสวัสดิการพลทหาร", "status": "done", "m": ""}, {"id": 33, "dept": "พลทหาร", "name": "รายงานยอดพลทหารประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 34, "dept": "พลทหาร", "name": "จัดตารางเวรประจำเดือน", "status": "monthly", "m": ""}, {"id": 35, "dept": "พลทหาร", "name": "วางแผนรับพลทหารใหม่", "status": "new", "m": ""}], "vehicles": [{"id": 1, "dept": "ส่วนยิง", "no": "22533", "st": "ok", "note": ""}, {"id": 2, "dept": "ส่วนยิง", "no": "22534", "st": "ok", "note": ""}, {"id": 3, "dept": "ส่วนยิง", "no": "22535", "st": "ok", "note": ""}, {"id": 4, "dept": "ส่วนยิง", "no": "22536", "st": "bad", "note": "มอเตอร์สตาร์ทชำรุด กำลังดำเนินการซ่อมที่พัน.ซบร."}, {"id": 5, "dept": "ส่วนยิง", "no": "22537", "st": "ok", "note": "อยู่ชายแดน"}, {"id": 6, "dept": "ส่วนยิง", "no": "22538", "st": "ok", "note": ""}], "vnext": 7}</script>
+
+<script id="code">
+(function () {
+  var ORG = "ป.2 พัน.12. รอ. ร้อย.2";
+  var TITLE = "แดชบอร์ด " + ORG;
+  var FONT = "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap";
+  var RESET = ":root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}";
+  var CSS = document.getElementById("css").textContent;
+  var CODE = document.getElementById("code").textContent;
+  var STATUS = { done: "ทำแล้ว", monthly: "ติดตามรายเดือน", "new": "งานใหม่ ยังไม่ได้ทำ" };
+  var ORDER = ["done", "monthly", "new"];
+  var SHOW = ["monthly", "new", "done"];
+
+  var now = new Date();
+  var MK = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2);
+  var MON = now.toLocaleDateString("th-TH", { month: "short" });
+  var TODAY = now.toLocaleDateString("th-TH", { day: "numeric", month: "long", year: "numeric" });
+
+  var state = JSON.parse(document.getElementById("data").textContent);
+  if (!state.depts) state.depts = [];
+  if (!state.vehicles) state.vehicles = [];
+  if (!state.vnext) state.vnext = state.vehicles.reduce(function (m, v) { return Math.max(m, v.id); }, 0) + 1;
+  state.tasks.forEach(function (t) { if (state.depts.indexOf(t.dept) < 0) state.depts.push(t.dept); });
+  var savedStr = JSON.stringify(state);
+
+  var vEditId = null, vConfirm = null, editId = null, confirmId = null, renameMode = false, confirmSec = false;
+  var canEdit = false, ns = null, saving = false, msgTimer = null;
+
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function pct(a, b) { return b ? Math.round((a / b) * 100) : 0; }
+  function isDirty() { return JSON.stringify(state) !== savedStr; }
+  function tasksOf(name) { return state.tasks.filter(function (t) { return t.dept === name; }); }
+  function count(list) {
+    var c = { done: 0, monthly: 0, "new": 0, mDone: 0, total: list.length };
+    list.forEach(function (t) {
+      c[t.status]++;
+      if (t.status === "monthly" && t.m === MK) c.mDone++;
+    });
+    return c;
+  }
+  function find(id) {
+    for (var i = 0; i < state.tasks.length; i++) if (String(state.tasks[i].id) === String(id)) return state.tasks[i];
+    return null;
+  }
+  function route() {
+    var m = /^#section-(\d+)$/.exec(location.hash);
+    if (m) { var i = parseInt(m[1], 10) - 1; if (state.depts[i] !== undefined) return i; }
+    return -1;
+  }
+  function showMsg(text, ok) {
+    var el = $("msg");
+    el.textContent = text;
+    el.className = "msg" + (ok ? " ok" : "");
+    el.hidden = false;
+    clearTimeout(msgTimer);
+    msgTimer = setTimeout(function () { el.hidden = true; }, 6000);
+  }
+
+  function ring(p, total, size, sw) {
+    var r = (size - sw) / 2, c = 2 * Math.PI * r, h = size / 2;
+    var label = total ? p + "%" : "–";
+    var arc = (total && p > 0)
+      ? '<circle class="arc" cx="' + h + '" cy="' + h + '" r="' + r + '" fill="none" stroke-width="' + sw + '" stroke-linecap="round" stroke-dasharray="' + (c * p / 100).toFixed(2) + " " + c.toFixed(2) + '" transform="rotate(-90 ' + h + " " + h + ')"/>'
+      : "";
+    return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + " " + size + '" role="img" aria-label="งานสำเร็จ ' + label + '">' +
+      '<circle class="trk" cx="' + h + '" cy="' + h + '" r="' + r + '" fill="none" stroke-width="' + sw + '"/>' + arc +
+      '<text x="' + h + '" y="' + h + '" text-anchor="middle" dominant-baseline="central" font-size="' + Math.round(size * 0.26) + '">' + label + "</text></svg>";
+  }
+
+  var app = $("app");
+  app.innerHTML =
+    '<div class="banner"><div><div class="eyebrow">แดชบอร์ดติดตามงาน</div><h1>' + esc(ORG) + '</h1></div><div class="asof" id="asof"></div></div>' +
+    '<div id="msg" class="msg" role="status" hidden></div>' +
+    '<main id="view" style="display:flex;flex-direction:column;gap:20px"></main>' +
+    '<div class="savebar" id="savebar" hidden><span>มีการแก้ไขที่ยังไม่ได้บันทึก ผู้เข้าชมจะเห็นหลังกดบันทึก</span>' +
+    '<div class="btns"><button type="button" class="ghost" data-act="discard">ยกเลิกการแก้ไข</button>' +
+    '<button type="button" class="primary" id="saveBtn" data-act="save">บันทึกและเผยแพร่</button></div></div>';
+
+  function renderAsof() {
+    var upd = new Date(state.updated);
+    $("asof").textContent = "วันนี้ " + TODAY + (isNaN(upd.getTime()) ? "" : " · แก้ไขล่าสุด " + upd.toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" }));
+  }
+
+  function tile(cls, label, num, unit, note) {
+    return '<div class="tile"><div class="lab"><i class="dot ' + cls + '"></i>' + label + '</div><div class="num">' + num + "<small>" + unit + '</small></div><div class="note">' + note + "</div></div>";
+  }
+
+  function homeHtml() {
+    var c = count(state.tasks);
+    var out = '<section class="board" aria-label="ส่วนในหน่วย"><div class="bhead"><h2>' + state.depts.length + ' ส่วนของหน่วย</h2>' +
+      '<div class="bleg"><span><i class="dot done"></i>ทำแล้ว</span><span><i class="dot monthly"></i>ติดตามรายเดือน (กำลังทำ)</span><span><i class="dot new"></i>งานใหม่ ยังไม่ได้ทำ</span></div></div><div class="cards">';
+    state.depts.forEach(function (d, i) {
+      var k = count(tasksOf(d));
+      out += '<a class="card" href="#section-' + (i + 1) + '"><span class="no">' + (i + 1) + '</span><div class="ring">' + ring(pct(k.done, k.total), k.total, 92, 10) + "</div>" +
+        "<h3>" + esc(d) + "</h3>" +
+        '<div class="s2">' + (k.total ? "เสร็จ " + k.done + " จาก " + k.total + " งาน" : "ยังไม่มีงาน") + "</div>" +
+        (vehOf(d).length ? '<div class="s2">รถใช้การได้ ' + vehOf(d).filter(function (v) { return v.st === "ok"; }).length + "/" + vehOf(d).length + " คัน</div>" : "") +
+        '<div class="leg"><span class="cnt done" title="ทำแล้ว">' + k.done + '</span><span class="cnt monthly" title="ติดตามรายเดือน">' + k.monthly + '</span><span class="cnt new" title="งานใหม่ ยังไม่ได้ทำ">' + k["new"] + "</span></div></a>";
+    });
+    out += "</div>";
+    if (canEdit) {
+      out += '<form class="bfoot" id="secForm"><div class="t">เพิ่มส่วนใหม่</div>' +
+        '<input type="text" id="secName" placeholder="ชื่อส่วน" aria-label="ชื่อส่วน" required>' +
+        '<button type="submit" class="primary">เพิ่มส่วน</button></form>';
+    }
+    out += "</section>";
+    out += '<section class="sum" aria-label="สรุปผล"><div class="sechead"><h2>สรุปผล</h2><span>รวมทุกส่วนของหน่วย</span></div><div class="tiles">' +
+      tile("", "งานย่อยทั้งหมด", c.total, "งาน", "ใน " + state.depts.length + " ส่วน") +
+      tile("done", "ทำแล้ว", c.done, pct(c.done, c.total) + "%", "เสร็จสมบูรณ์") +
+      tile("monthly", "ติดตามรายเดือน", c.monthly, "งาน", "รอบ " + MON + " เสร็จแล้ว " + c.mDone + " จาก " + c.monthly) +
+      tile("new", "งานใหม่ ยังไม่ได้ทำ", c["new"], pct(c["new"], c.total) + "%", "รอเริ่มดำเนินการ") +
+      "</div></section>";
+    return out;
+  }
+
+  var VST = { ok: "ใช้การได้", bad: "ชำรุด" };
+  function vehOf(name) { return state.vehicles.filter(function (v) { return v.dept === name; }); }
+  function findV(id) {
+    for (var i = 0; i < state.vehicles.length; i++) if (String(state.vehicles[i].id) === String(id)) return state.vehicles[i];
+    return null;
+  }
+  function vehRow(v) {
+    if (vEditId === v.id) {
+      return '<div class="editrow"><input type="text" id="vNo" value="' + esc(v.no) + '" aria-label="หมายเลขรถ" style="flex:1 1 120px">' +
+        '<select id="vSt" aria-label="สถานะรถ"><option value="ok"' + (v.st === "ok" ? " selected" : "") + '>ใช้การได้</option><option value="bad"' + (v.st === "bad" ? " selected" : "") + '>ชำรุด</option></select>' +
+        '<input type="text" id="vNote" value="' + esc(v.note || "") + '" aria-label="หมายเหตุ" placeholder="หมายเหตุ">' +
+        '<button type="button" class="primary" data-act="veditok" data-id="' + v.id + '">ตกลง</button>' +
+        '<button type="button" class="ghost" data-act="veditcancel">ยกเลิก</button></div>';
+    }
+    var out = '<div class="task"><div class="name"><b class="vno">' + esc(v.no) + "</b>" + (v.note ? '<div class="vnote">' + esc(v.note) + "</div>" : "") + '</div><div class="ctl">';
+    var cls = v.st === "ok" ? "done" : "new";
+    out += canEdit
+      ? '<button type="button" class="pill ' + cls + '" data-act="vcycle" data-id="' + v.id + '" title="กดเพื่อสลับสถานะ"><i class="dot"></i>' + VST[v.st] + "</button>"
+      : '<span class="pill ' + cls + '"><i class="dot"></i>' + VST[v.st] + "</span>";
+    if (canEdit) {
+      out += '<button type="button" class="mini" data-act="vedit" data-id="' + v.id + '">แก้ไข</button>' +
+        (vConfirm === v.id
+          ? '<button type="button" class="mini sure" data-act="vdel" data-id="' + v.id + '">ยืนยันลบ</button>'
+          : '<button type="button" class="mini danger" data-act="vdel" data-id="' + v.id + '">ลบ</button>');
+    }
+    return out + "</div></div>";
+  }
+  function vehiclesHtml(name) {
+    var list = vehOf(name);
+    if (!list.length && !canEdit) return "";
+    var ok = list.filter(function (v) { return v.st === "ok"; }).length;
+    var out = '<section class="panel"><div class="sechead" style="margin-bottom:8px"><h2>ยานพาหนะ</h2><span>' +
+      (list.length ? "ใช้การได้ " + ok + " จาก " + list.length + " คัน" : "ยังไม่มีรถ") + "</span></div>";
+    if (list.length) {
+      out += '<div class="tiles three" style="margin:8px 0 6px">' +
+        tile("", "รถทั้งหมด", list.length, "คัน", "ในส่วนนี้") +
+        tile("done", "ใช้การได้", ok, "คัน", "พร้อมใช้งาน") +
+        tile("new", "ชำรุด", list.length - ok, "คัน", "ต้องซ่อม") + "</div>";
+    }
+    out += list.map(vehRow).join("");
+    if (canEdit) {
+      out += '<form class="add" id="vForm"><div class="t">เพิ่มรถ</div>' +
+        '<input type="text" id="vAddNo" placeholder="หมายเลขรถ" aria-label="หมายเลขรถ" required style="flex:1 1 140px">' +
+        '<select id="vAddSt" aria-label="สถานะรถ"><option value="ok">ใช้การได้</option><option value="bad">ชำรุด</option></select>' +
+        '<input type="text" id="vAddNote" placeholder="หมายเหตุ เช่น ที่ตั้ง หรือการซ่อม" aria-label="หมายเหตุ">' +
+        '<button type="submit" class="primary">เพิ่มรถ</button></form>';
+    }
+    return out + "</section>";
+  }
+
+  function editRowHtml(t) {
+    var opts = ORDER.map(function (k) { return '<option value="' + k + '"' + (t.status === k ? " selected" : "") + ">" + STATUS[k] + "</option>"; }).join("");
+    var dopts = state.depts.map(function (d) { return '<option value="' + esc(d) + '"' + (t.dept === d ? " selected" : "") + ">" + esc(d) + "</option>"; }).join("");
+    return '<div class="editrow"><input type="text" id="eName" value="' + esc(t.name) + '" aria-label="ชื่องาน">' +
+      '<select id="eDept" aria-label="ส่วน">' + dopts + "</select>" +
+      '<select id="eStatus" aria-label="สถานะ">' + opts + "</select>" +
+      '<button type="button" class="primary" data-act="editok" data-id="' + t.id + '">ตกลง</button>' +
+      '<button type="button" class="ghost" data-act="editcancel">ยกเลิก</button></div>';
+  }
+
+  function taskHtml(t) {
+    if (editId === t.id) return editRowHtml(t);
+    var out = '<div class="task"><div class="name">' + esc(t.name) + '</div><div class="ctl">';
+    if (t.status === "monthly") {
+      var ok = t.m === MK;
+      var label = MON + (ok ? ": เสร็จแล้ว" : ": รอทำ");
+      out += canEdit
+        ? '<button type="button" class="mchip ' + (ok ? "ok" : "wait") + '" data-act="month" data-id="' + t.id + '" title="กดเพื่อสลับสถานะรอบเดือนนี้">' + label + "</button>"
+        : '<span class="mchip ' + (ok ? "ok" : "wait") + '">' + label + "</span>";
+    }
+    out += canEdit
+      ? '<button type="button" class="pill ' + t.status + '" data-act="cycle" data-id="' + t.id + '" title="กดเพื่อเปลี่ยนสถานะ"><i class="dot"></i>' + STATUS[t.status] + "</button>"
+      : '<span class="pill ' + t.status + '"><i class="dot"></i>' + STATUS[t.status] + "</span>";
+    if (canEdit) {
+      out += '<button type="button" class="mini" data-act="edit" data-id="' + t.id + '">แก้ไข</button>' +
+        (confirmId === t.id
+          ? '<button type="button" class="mini sure" data-act="del" data-id="' + t.id + '">ยืนยันลบ</button>'
+          : '<button type="button" class="mini danger" data-act="del" data-id="' + t.id + '">ลบ</button>');
+    }
+    return out + "</div></div>";
+  }
+
+  function detailHtml(i) {
+    var name = state.depts[i], list = tasksOf(name), k = count(list);
+    var out = '<a class="back" href="#">‹ กลับไปทุกส่วน</a>';
+    out += '<div class="dhead"><div class="ring">' + ring(pct(k.done, k.total), k.total, 120, 12) + '</div><div class="t">';
+    if (renameMode) {
+      out += '<div class="renamerow"><input type="text" id="renameInput" value="' + esc(name) + '" aria-label="ชื่อส่วน">' +
+        '<button type="button" class="primary" data-act="renameok">ตกลง</button><button type="button" class="ghost" data-act="renamecancel">ยกเลิก</button></div>';
+    } else {
+      out += "<h2>" + esc(name) + "</h2>";
+    }
+    out += '<div class="s2">' + (k.total ? "ทำเสร็จแล้ว " + k.done + " จาก " + k.total + " งาน" : "ส่วนนี้ยังไม่มีงาน") + "</div>";
+    if (canEdit && !renameMode) {
+      out += '<div class="acts"><button type="button" class="mini" data-act="rename">เปลี่ยนชื่อส่วน</button>';
+      if (!k.total && !vehOf(name).length) {
+        out += confirmSec
+          ? '<button type="button" class="mini sure" data-act="delsec">ยืนยันลบส่วนนี้</button>'
+          : '<button type="button" class="mini danger" data-act="delsec">ลบส่วนนี้</button>';
+      }
+      out += "</div>";
+    }
+    out += "</div></div>";
+    out += '<section class="tiles three">' +
+      tile("monthly", "ติดตามรายเดือน", k.monthly, "งาน", "รอบ " + MON + " เสร็จแล้ว " + k.mDone + " จาก " + k.monthly) +
+      tile("new", "งานใหม่ ยังไม่ได้ทำ", k["new"], "งาน", "รอเริ่มดำเนินการ") +
+      tile("done", "ทำแล้ว", k.done, "งาน", "เสร็จสมบูรณ์") + "</section>";
+    out += '<section class="panel"><div class="sechead" style="margin-bottom:12px"><h2>รายการงานในส่วนนี้</h2></div>';
+    var any = false;
+    SHOW.forEach(function (s) {
+      var g = list.filter(function (t) { return t.status === s; });
+      if (!g.length) return;
+      any = true;
+      out += '<div class="group"><h3><i class="dot ' + s + '"></i>' + STATUS[s] + '<span class="n">' + g.length + " งาน</span></h3>" + g.map(taskHtml).join("") + "</div>";
+    });
+    if (!any) out += '<div class="empty">ยังไม่มีงานในส่วนนี้' + (canEdit ? " เพิ่มงานแรกได้ด้านล่าง" : "") + "</div>";
+    if (canEdit) {
+      out += '<form class="add" id="addForm"><div class="t">เพิ่มงานในส่วนนี้</div>' +
+        '<input type="text" id="addName" placeholder="ชื่องาน" aria-label="ชื่องาน" required>' +
+        '<select id="addStatus" aria-label="สถานะ"><option value="new">งานใหม่ ยังไม่ได้ทำ</option><option value="monthly">ติดตามรายเดือน</option><option value="done">ทำแล้ว</option></select>' +
+        '<button type="submit" class="primary">เพิ่มงาน</button></form>';
+    }
+    return out + "</section>" + vehiclesHtml(name);
+  }
+
+  function render() {
+    var i = route();
+    renderAsof();
+    $("view").innerHTML = i >= 0 ? detailHtml(i) : homeHtml();
+    $("savebar").hidden = !(canEdit && isDirty());
+  }
+
+  function buildDoc() {
+    state.updated = new Date().toISOString();
+    var data = JSON.stringify(state).replace(/</g, "\\u003c");
+    var content =
+      "<title>" + TITLE + "</title>\n" +
+      '<meta name="claude:viewport-fit-sides" content="cover">\n' +
+      '<link rel="stylesheet" href="' + FONT + '">\n' +
+      '<style id="css">' + CSS + "</style>\n\n" +
+      '<div class="wrap" id="app"></div>\n\n' +
+      '<scr' + 'ipt id="data" type="application/json">' + data + "</scr" + "ipt>\n\n" +
+      '<scr' + 'ipt id="code">' + CODE + "</scr" + "ipt>\n";
+    return '<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>' +
+      RESET + "</style></head><body>" + content + "</body></html>";
+  }
+
+  function save() {
+    if (saving || !ns) return;
+    saving = true;
+    $("saveBtn").disabled = true;
+    $("saveBtn").textContent = "กำลังบันทึก...";
+    ns.publish(buildDoc()).then(function () {
+      // The shell reloads this view to the new version.
+    }, function (e) {
+      saving = false;
+      $("saveBtn").disabled = false;
+      $("saveBtn").textContent = "บันทึกและเผยแพร่";
+      var code = e && e.code;
+      if (code === "not_writer" || code === "not_granted" || code === "not_declared" || code === "capability_disabled" || code === "consent_required") {
+        canEdit = false;
+        render();
+        showMsg("บัญชีนี้ไม่มีสิทธิ์บันทึกแก้ไข ติดต่อเจ้าของหน้านี้เพื่อขอสิทธิ์ผู้แก้ไข");
+      } else if (code === "conflict") {
+        showMsg("มีผู้อื่นบันทึกไปก่อน หน้านี้จะโหลดข้อมูลล่าสุดให้ แล้วแก้ไขซ้ำอีกครั้ง");
+      } else if (code === "rate_limited") {
+        showMsg("บันทึกถี่เกินไป รอสักครู่แล้วลองใหม่");
+      } else {
+        showMsg("บันทึกไม่สำเร็จ ลองอีกครั้ง");
+      }
+    });
+  }
+
+  function resetUi() { vEditId = null; vConfirm = null; editId = null; confirmId = null; renameMode = false; confirmSec = false; }
+
+  app.addEventListener("click", function (e) {
+    var el = e.target.closest("[data-act]");
+    var act = el ? el.getAttribute("data-act") : "";
+    if ((confirmId !== null && act !== "del") || (confirmSec && act !== "delsec") || (vConfirm !== null && act !== "vdel")) {
+      confirmId = null; confirmSec = false; vConfirm = null;
+      if (!el) { render(); return; }
+    }
+    if (!el) return;
+    var id = el.getAttribute("data-id"), t, i = route();
+    if (act === "save") { save(); return; }
+    if (act === "discard") { state = JSON.parse(savedStr); resetUi(); if (route() < 0 && location.hash) location.hash = ""; render(); return; }
+    if (!canEdit) return;
+    if (act === "editcancel") { editId = null; render(); return; }
+    if (act === "rename") { renameMode = true; render(); var ri = $("renameInput"); if (ri) ri.focus(); return; }
+    if (act === "renamecancel") { renameMode = false; render(); return; }
+    if (act === "renameok" && i >= 0) {
+      var nn = $("renameInput").value.trim(), old = state.depts[i];
+      if (!nn) { showMsg("กรอกชื่อส่วน"); return; }
+      if (nn !== old && state.depts.indexOf(nn) >= 0) { showMsg("มีส่วนชื่อนี้อยู่แล้ว"); return; }
+      state.depts[i] = nn;
+      state.tasks.forEach(function (x) { if (x.dept === old) x.dept = nn; });
+      state.vehicles.forEach(function (x) { if (x.dept === old) x.dept = nn; });
+      renameMode = false; render(); return;
+    }
+    if (act === "delsec" && i >= 0) {
+      if (confirmSec) {
+        state.depts.splice(i, 1); confirmSec = false; location.hash = ""; render();
+      } else { confirmSec = true; render(); }
+      return;
+    }
+    if (act === "vcycle" || act === "vedit" || act === "veditok" || act === "vdel") {
+      var v = findV(id);
+      if (!v) return;
+      if (act === "vcycle") { v.st = v.st === "ok" ? "bad" : "ok"; }
+      else if (act === "vedit") { vEditId = v.id; render(); return; }
+      else if (act === "veditok") {
+        var no = $("vNo").value.trim();
+        if (!no) { showMsg("กรอกหมายเลขรถ"); return; }
+        v.no = no; v.st = $("vSt").value; v.note = $("vNote").value.trim(); vEditId = null;
+      } else if (act === "vdel") {
+        if (vConfirm === v.id) { state.vehicles = state.vehicles.filter(function (x) { return x !== v; }); vConfirm = null; }
+        else { vConfirm = v.id; render(); return; }
+      }
+      render(); return;
+    }
+    if (act === "veditcancel") { vEditId = null; render(); return; }
+    t = find(id);
+    if (!t) return;
+    if (act === "edit") { editId = t.id; render(); return; }
+    if (act === "editok") {
+      var name = $("eName").value.trim();
+      if (!name) { showMsg("กรอกชื่องาน"); return; }
+      t.name = name; t.dept = $("eDept").value; t.status = $("eStatus").value;
+      if (t.status !== "monthly") t.m = "";
+      editId = null; render(); return;
+    }
+    if (act === "cycle") { t.status = ORDER[(ORDER.indexOf(t.status) + 1) % ORDER.length]; if (t.status !== "monthly") t.m = ""; }
+    if (act === "month") { t.m = t.m === MK ? "" : MK; }
+    if (act === "del") {
+      if (confirmId === t.id) { state.tasks = state.tasks.filter(function (x) { return x !== t; }); confirmId = null; }
+      else { confirmId = t.id; render(); return; }
+    }
+    render();
+  });
+
+  app.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!canEdit) return;
+    var f = e.target.id, i = route();
+    if (f === "secForm") {
+      var sn = $("secName").value.trim();
+      if (!sn) return;
+      if (state.depts.indexOf(sn) >= 0) { showMsg("มีส่วนชื่อนี้อยู่แล้ว"); return; }
+      state.depts.push(sn);
+      render();
+    } else if (f === "vForm" && i >= 0) {
+      var vn = $("vAddNo").value.trim();
+      if (!vn) return;
+      state.vehicles.push({ id: state.vnext++, dept: state.depts[i], no: vn, st: $("vAddSt").value, note: $("vAddNote").value.trim() });
+      render();
+    } else if (f === "addForm" && i >= 0) {
+      var name = $("addName").value.trim();
+      if (!name) return;
+      state.tasks.push({ id: state.next++, dept: state.depts[i], name: name, status: $("addStatus").value, m: "" });
+      render();
+      $("addName").focus();
+    }
+  });
+
+  window.addEventListener("hashchange", function () { resetUi(); render(); window.scrollTo(0, 0); });
+
+  render();
+
+  try {
+    if (window.claude && window.claude.use) {
+      Promise.all([window.claude.use("artifact"), window.claude.use("user")]).then(function (r) {
+        ns = r[0];
+        return r[1] ? r[1].canEdit() : false;
+      }).then(function (ce) {
+        canEdit = !!(ce && ns);
+        render();
+      }, function () {});
+    }
+  } catch (err) {}
+})();
+</script>
+</body></html>
