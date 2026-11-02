@@ -173,11 +173,13 @@ form.add select { flex: 1 1 150px; }
 
 .vno { font-size: 17px; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
 .vnote { color: var(--muted); font-size: 13px; margin-top: 1px; }
+
+.group + .group { margin-top: 18px; }
 </style>
 
 <div class="wrap" id="app"></div>
 
-<script id="data" type="application/json">{"next": 36, "updated": "2026-11-02T00:00:00.000Z", "depts": ["บก.ร้อย.", "ส่วนยิง", "ยานยนต์", "อาภรณ์ภัณฑ์", "อาวุธ", "แผนที่", "สื่อสาร", "ตรวจการณ์", "กำลังพลนายสิบ", "พลทหาร"], "tasks": [{"id": 1, "dept": "บก.ร้อย.", "name": "จัดทำแผนงานประจำปีของร้อย.", "status": "done", "m": ""}, {"id": 2, "dept": "บก.ร้อย.", "name": "รายงานสถานะประจำเดือนถึงกองพัน", "status": "monthly", "m": "2026-11"}, {"id": 3, "dept": "บก.ร้อย.", "name": "ตรวจสอบทะเบียนเอกสารของร้อย.", "status": "monthly", "m": ""}, {"id": 4, "dept": "บก.ร้อย.", "name": "จัดทำคำสั่งมอบหน้าที่ชุดใหม่", "status": "new", "m": ""}, {"id": 5, "dept": "ส่วนยิง", "name": "ทบทวนตารางการฝึกยิง", "status": "done", "m": ""}, {"id": 6, "dept": "ส่วนยิง", "name": "ตรวจสภาพและบำรุงรักษาปืนประจำเดือน", "status": "monthly", "m": ""}, {"id": 7, "dept": "ส่วนยิง", "name": "จัดทำแผนฝึกยิงประจำปี", "status": "new", "m": ""}, {"id": 8, "dept": "ยานยนต์", "name": "ปรับปรุงทะเบียนคุมยานพาหนะ", "status": "done", "m": ""}, {"id": 9, "dept": "ยานยนต์", "name": "ตรวจสภาพยานพาหนะประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 10, "dept": "ยานยนต์", "name": "ซ่อมบำรุงตามระยะ", "status": "monthly", "m": ""}, {"id": 11, "dept": "ยานยนต์", "name": "ขอเปลี่ยนอะไหล่ที่ชำรุด", "status": "new", "m": ""}, {"id": 12, "dept": "อาภรณ์ภัณฑ์", "name": "ปรับปรุงทะเบียนคุมอาภรณ์ภัณฑ์", "status": "done", "m": ""}, {"id": 13, "dept": "อาภรณ์ภัณฑ์", "name": "ตรวจนับเครื่องแบบและเครื่องใช้ประจำตัว", "status": "monthly", "m": "2026-11"}, {"id": 14, "dept": "อาภรณ์ภัณฑ์", "name": "เสนอขอเบิกเครื่องแบบทดแทน", "status": "new", "m": ""}, {"id": 15, "dept": "อาวุธ", "name": "ตรวจสภาพคลังอาวุธ", "status": "done", "m": ""}, {"id": 16, "dept": "อาวุธ", "name": "ตรวจนับอาวุธประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 17, "dept": "อาวุธ", "name": "ทบทวนทะเบียนคุมอาวุธ", "status": "monthly", "m": ""}, {"id": 18, "dept": "อาวุธ", "name": "ขอรับอุปกรณ์ทำความสะอาดอาวุธ", "status": "new", "m": ""}, {"id": 19, "dept": "แผนที่", "name": "ปรับปรุงแผนที่และข้อมูลพื้นที่ปฏิบัติการ", "status": "done", "m": ""}, {"id": 20, "dept": "แผนที่", "name": "ตรวจความถูกต้องของข้อมูลแผนที่ประจำเดือน", "status": "monthly", "m": ""}, {"id": 21, "dept": "แผนที่", "name": "จัดหาแผนที่ชุดใหม่", "status": "new", "m": ""}, {"id": 22, "dept": "สื่อสาร", "name": "ปรับปรุงทะเบียนอุปกรณ์สื่อสาร", "status": "done", "m": ""}, {"id": 23, "dept": "สื่อสาร", "name": "ตรวจเครื่องวิทยุและอุปกรณ์สื่อสารประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 24, "dept": "สื่อสาร", "name": "ทดสอบระบบสื่อสารสำรอง", "status": "new", "m": ""}, {"id": 25, "dept": "ตรวจการณ์", "name": "ปรับปรุงทะเบียนอุปกรณ์ตรวจการณ์", "status": "done", "m": ""}, {"id": 26, "dept": "ตรวจการณ์", "name": "ตรวจสภาพกล้องและอุปกรณ์ตรวจการณ์", "status": "monthly", "m": ""}, {"id": 27, "dept": "ตรวจการณ์", "name": "ฝึกทบทวนการตรวจการณ์", "status": "new", "m": ""}, {"id": 28, "dept": "กำลังพลนายสิบ", "name": "ปรับปรุงทะเบียนประวัติกำลังพล", "status": "done", "m": ""}, {"id": 29, "dept": "กำลังพลนายสิบ", "name": "รายงานยอดกำลังพลนายสิบประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 30, "dept": "กำลังพลนายสิบ", "name": "ตรวจสอบสิทธิ์และสวัสดิการ", "status": "monthly", "m": ""}, {"id": 31, "dept": "กำลังพลนายสิบ", "name": "เสนอแผนพัฒนาความรู้นายสิบ", "status": "new", "m": ""}, {"id": 32, "dept": "พลทหาร", "name": "ตรวจสอบสิทธิ์และสวัสดิการพลทหาร", "status": "done", "m": ""}, {"id": 33, "dept": "พลทหาร", "name": "รายงานยอดพลทหารประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 34, "dept": "พลทหาร", "name": "จัดตารางเวรประจำเดือน", "status": "monthly", "m": ""}, {"id": 35, "dept": "พลทหาร", "name": "วางแผนรับพลทหารใหม่", "status": "new", "m": ""}], "vehicles": [{"id": 1, "dept": "ส่วนยิง", "no": "22533", "st": "ok", "note": ""}, {"id": 2, "dept": "ส่วนยิง", "no": "22534", "st": "ok", "note": ""}, {"id": 3, "dept": "ส่วนยิง", "no": "22535", "st": "ok", "note": ""}, {"id": 4, "dept": "ส่วนยิง", "no": "22536", "st": "bad", "note": "มอเตอร์สตาร์ทชำรุด กำลังดำเนินการซ่อมที่พัน.ซบร."}, {"id": 5, "dept": "ส่วนยิง", "no": "22537", "st": "ok", "note": "อยู่ชายแดน"}, {"id": 6, "dept": "ส่วนยิง", "no": "22538", "st": "ok", "note": ""}], "vnext": 7}</script>
+<script id="data" type="application/json">{"next": 36, "updated": "2026-11-02T11:10:22.970Z", "depts": ["บก.ร้อย.", "ส่วนยิง", "ยานยนต์", "อาภรณ์ภัณฑ์", "อาวุธ", "แผนที่", "สื่อสาร", "ตรวจการณ์", "กำลังพลนายสิบ", "พลทหาร"], "tasks": [{"id": 1, "dept": "บก.ร้อย.", "name": "จัดทำแผนงานประจำปีของร้อย.", "status": "monthly", "m": "2026-11"}, {"id": 2, "dept": "บก.ร้อย.", "name": "รายงานสถานะประจำเดือนถึงกองพัน", "status": "done", "m": ""}, {"id": 3, "dept": "บก.ร้อย.", "name": "ตรวจสอบทะเบียนเอกสารของร้อย.", "status": "done", "m": ""}, {"id": 4, "dept": "บก.ร้อย.", "name": "จัดทำคำสั่งมอบหน้าที่ชุดใหม่", "status": "monthly", "m": "2026-11"}, {"id": 5, "dept": "ส่วนยิง", "name": "ทบทวนตารางการฝึกยิง", "status": "done", "m": ""}, {"id": 6, "dept": "ส่วนยิง", "name": "ตรวจสภาพและบำรุงรักษาปืนประจำเดือน", "status": "done", "m": ""}, {"id": 7, "dept": "ส่วนยิง", "name": "จัดทำแผนฝึกประจำปี", "status": "monthly", "m": ""}, {"id": 8, "dept": "ยานยนต์", "name": "ปรับปรุงทะเบียนคุมยานพาหนะ", "status": "done", "m": ""}, {"id": 9, "dept": "ยานยนต์", "name": "ตรวจสภาพยานพาหนะประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 10, "dept": "ยานยนต์", "name": "ซ่อมบำรุงตามระยะ", "status": "monthly", "m": ""}, {"id": 11, "dept": "ยานยนต์", "name": "ขอเปลี่ยนอะไหล่ที่ชำรุด", "status": "new", "m": ""}, {"id": 12, "dept": "อาภรณ์ภัณฑ์", "name": "ปรับปรุงทะเบียนคุมอาภรณ์ภัณฑ์", "status": "done", "m": ""}, {"id": 13, "dept": "อาภรณ์ภัณฑ์", "name": "ตรวจนับเครื่องแบบและเครื่องใช้ประจำตัว", "status": "monthly", "m": "2026-11"}, {"id": 14, "dept": "อาภรณ์ภัณฑ์", "name": "เสนอขอเบิกเครื่องสนามทดแทน", "status": "new", "m": ""}, {"id": 15, "dept": "อาวุธ", "name": "ตรวจสภาพคลังอาวุธ", "status": "done", "m": ""}, {"id": 16, "dept": "อาวุธ", "name": "ตรวจนับอาวุธประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 17, "dept": "อาวุธ", "name": "ทบทวนทะเบียนคุมอาวุธ", "status": "monthly", "m": ""}, {"id": 18, "dept": "อาวุธ", "name": "ขอรับอุปกรณ์ทำความสะอาดอาวุธ", "status": "new", "m": ""}, {"id": 19, "dept": "แผนที่", "name": "ติดตามใบส่งซ่อม", "status": "done", "m": ""}, {"id": 20, "dept": "แผนที่", "name": "ตรวจคลังแผนที่ประจำเดือน", "status": "monthly", "m": ""}, {"id": 22, "dept": "สื่อสาร", "name": "ปรับปรุงทะเบียนอุปกรณ์สื่อสาร", "status": "done", "m": ""}, {"id": 23, "dept": "สื่อสาร", "name": "ตรวจเครื่องวิทยุและอุปกรณ์สื่อสารประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 24, "dept": "สื่อสาร", "name": "ทดสอบระบบสื่อสารสำรอง", "status": "new", "m": ""}, {"id": 25, "dept": "ตรวจการณ์", "name": "ปรับปรุงทะเบียนอุปกรณ์ตรวจการณ์", "status": "done", "m": ""}, {"id": 26, "dept": "ตรวจการณ์", "name": "ตรวจสภาพกล้องและอุปกรณ์ตรวจการณ์", "status": "monthly", "m": ""}, {"id": 27, "dept": "ตรวจการณ์", "name": "ฝึกทบทวนการตรวจการณ์", "status": "new", "m": ""}, {"id": 28, "dept": "กำลังพลนายสิบ", "name": "ปรับปรุงทะเบียนประวัติกำลังพล", "status": "done", "m": ""}, {"id": 29, "dept": "กำลังพลนายสิบ", "name": "รายงานยอดกำลังพลนายสิบประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 30, "dept": "กำลังพลนายสิบ", "name": "ตรวจสอบสิทธิ์และสวัสดิการ", "status": "monthly", "m": ""}, {"id": 31, "dept": "กำลังพลนายสิบ", "name": "เสนอแผนพัฒนาความรู้นายสิบ", "status": "new", "m": ""}, {"id": 32, "dept": "พลทหาร", "name": "ตรวจสอบสิทธิ์และสวัสดิการพลทหาร", "status": "done", "m": ""}, {"id": 33, "dept": "พลทหาร", "name": "รายงานยอดพลทหารประจำเดือน", "status": "monthly", "m": "2026-11"}, {"id": 34, "dept": "พลทหาร", "name": "จัดตารางเวรประจำเดือน", "status": "monthly", "m": ""}, {"id": 35, "dept": "พลทหาร", "name": "วางแผนรับพลทหารใหม่", "status": "new", "m": ""}], "vehicles": [{"id": 1, "dept": "ส่วนยิง", "no": "22533", "st": "ok", "note": ""}, {"id": 2, "dept": "ส่วนยิง", "no": "22534", "st": "ok", "note": ""}, {"id": 3, "dept": "ส่วนยิง", "no": "22535", "st": "ok", "note": ""}, {"id": 4, "dept": "ส่วนยิง", "no": "22536", "st": "bad", "note": "มอเตอร์สตาร์ทชำรุด กำลังดำเนินการซ่อมที่พัน.ซบร."}, {"id": 5, "dept": "ส่วนยิง", "no": "22537", "st": "ok", "note": "อยู่ชายแดน"}, {"id": 6, "dept": "ส่วนยิง", "no": "22538", "st": "ok", "note": ""}, {"id": 7, "dept": "ยานยนต์", "type": "วีโก้ แบบ 51", "no": "89383", "st": "ok", "note": "ตอนนี้ส่งเบาะซ่อมกับสาย 4"}, {"id": 8, "dept": "ยานยนต์", "type": "วีโก้ แบบ 50", "no": "91807", "st": "ok", "note": "ป.2 พัน.102 ยืม"}, {"id": 9, "dept": "ยานยนต์", "type": "วีโก้ แบบ 50", "no": "91806", "st": "bad", "note": "เครื่องพัง"}, {"id": 10, "dept": "ยานยนต์", "type": "รยบ.5 ตัน M813 A1", "no": "83379", "st": "bad", "note": "สายอ่อนเบรคหลังแตก"}, {"id": 11, "dept": "ยานยนต์", "type": "รยบ.5 ตัน M813 A1", "no": "83381", "st": "bad", "note": "เครื่องยนต์สตาร์ทติดยาก"}, {"id": 12, "dept": "ยานยนต์", "type": "รยบ.5 ตัน M813 A1", "no": "83382", "st": "bad", "note": "เครื่องติดยาก"}, {"id": 13, "dept": "ยานยนต์", "type": "รยบ.5 ตัน M813 A1", "no": "83383", "st": "bad", "note": "ระบบเบรคติด"}, {"id": 14, "dept": "ยานยนต์", "type": "รยบ.5 ตัน M813 A1", "no": "83384", "st": "bad", "note": "หม้อลมเบรครั่ว"}, {"id": 15, "dept": "ยานยนต์", "type": "รยบ.5 ตัน M813 A1", "no": "86470", "st": "bad", "note": "ระบบเบรคติด"}, {"id": 16, "dept": "ยานยนต์", "type": "รยบ.5 ตัน M813 A1", "no": "89007", "st": "ok", "note": ""}, {"id": 17, "dept": "ยานยนต์", "type": "รยบ.5 ตัน M813 A1", "no": "89008", "st": "bad", "note": "ระบบน้ำมันเชื้อเพลิงตันและระบบเบรครั่ว"}, {"id": 18, "dept": "ยานยนต์", "type": "รยบ.5 ตัน M814 A1", "no": "89013", "st": "bad", "note": "ระบบเบรครั่ว"}, {"id": 19, "dept": "ยานยนต์", "type": "รยบ.5 ตัน M814 A1", "no": "89014", "st": "bad", "note": "ระบบหม้อน้ำรั่ว"}], "vnext": 20}</script>
 
 <script id="code">
 (function () {
@@ -298,7 +300,7 @@ form.add select { flex: 1 1 150px; }
     return out;
   }
 
-  var VST = { ok: "ใช้การได้", bad: "ชำรุด" };
+  var VST = { ok: "ใช้การได้", bad: "งดใช้งาน" };
   function vehOf(name) { return state.vehicles.filter(function (v) { return v.dept === name; }); }
   function findV(id) {
     for (var i = 0; i < state.vehicles.length; i++) if (String(state.vehicles[i].id) === String(id)) return state.vehicles[i];
@@ -306,8 +308,8 @@ form.add select { flex: 1 1 150px; }
   }
   function vehRow(v) {
     if (vEditId === v.id) {
-      return '<div class="editrow"><input type="text" id="vNo" value="' + esc(v.no) + '" aria-label="หมายเลขรถ" style="flex:1 1 120px">' +
-        '<select id="vSt" aria-label="สถานะรถ"><option value="ok"' + (v.st === "ok" ? " selected" : "") + '>ใช้การได้</option><option value="bad"' + (v.st === "bad" ? " selected" : "") + '>ชำรุด</option></select>' +
+      return '<div class="editrow"><input type="text" id="vType" value="' + esc(v.type || "") + '" aria-label="แบบรถ" placeholder="แบบรถ" style="flex:1 1 140px"><input type="text" id="vNo" value="' + esc(v.no) + '" aria-label="หมายเลขรถ" style="flex:1 1 120px">' +
+        '<select id="vSt" aria-label="สถานะรถ"><option value="ok"' + (v.st === "ok" ? " selected" : "") + '>ใช้การได้</option><option value="bad"' + (v.st === "bad" ? " selected" : "") + '>งดใช้งาน</option></select>' +
         '<input type="text" id="vNote" value="' + esc(v.note || "") + '" aria-label="หมายเหตุ" placeholder="หมายเหตุ">' +
         '<button type="button" class="primary" data-act="veditok" data-id="' + v.id + '">ตกลง</button>' +
         '<button type="button" class="ghost" data-act="veditcancel">ยกเลิก</button></div>';
@@ -335,13 +337,21 @@ form.add select { flex: 1 1 150px; }
       out += '<div class="tiles three" style="margin:8px 0 6px">' +
         tile("", "รถทั้งหมด", list.length, "คัน", "ในส่วนนี้") +
         tile("done", "ใช้การได้", ok, "คัน", "พร้อมใช้งาน") +
-        tile("new", "ชำรุด", list.length - ok, "คัน", "ต้องซ่อม") + "</div>";
+        tile("new", "งดใช้งาน", list.length - ok, "คัน", "ต้องซ่อมหรือรอดำเนินการ") + "</div>";
     }
-    out += list.map(vehRow).join("");
+    var types = [];
+    list.forEach(function (v) { var ty = v.type || ""; if (types.indexOf(ty) < 0) types.push(ty); });
+    types.forEach(function (ty) {
+      var g = list.filter(function (v) { return (v.type || "") === ty; });
+      var gok = g.filter(function (v) { return v.st === "ok"; }).length;
+      out += '<div class="group">' + (ty ? "<h3>" + esc(ty) + '<span class="n">ใช้การได้ ' + gok + " จาก " + g.length + " คัน</span></h3>" : "") + g.map(vehRow).join("") + "</div>";
+    });
     if (canEdit) {
       out += '<form class="add" id="vForm"><div class="t">เพิ่มรถ</div>' +
+        '<input type="text" id="vAddType" list="vTypeList" placeholder="แบบรถ เช่น วีโก้ แบบ 51" aria-label="แบบรถ" style="flex:1 1 170px">' +
+        '<datalist id="vTypeList">' + types.filter(Boolean).map(function (ty) { return '<option value="' + esc(ty) + '"></option>'; }).join("") + "</datalist>" +
         '<input type="text" id="vAddNo" placeholder="หมายเลขรถ" aria-label="หมายเลขรถ" required style="flex:1 1 140px">' +
-        '<select id="vAddSt" aria-label="สถานะรถ"><option value="ok">ใช้การได้</option><option value="bad">ชำรุด</option></select>' +
+        '<select id="vAddSt" aria-label="สถานะรถ"><option value="ok">ใช้การได้</option><option value="bad">งดใช้งาน</option></select>' +
         '<input type="text" id="vAddNote" placeholder="หมายเหตุ เช่น ที่ตั้ง หรือการซ่อม" aria-label="หมายเหตุ">' +
         '<button type="submit" class="primary">เพิ่มรถ</button></form>';
     }
@@ -511,7 +521,7 @@ form.add select { flex: 1 1 150px; }
       else if (act === "veditok") {
         var no = $("vNo").value.trim();
         if (!no) { showMsg("กรอกหมายเลขรถ"); return; }
-        v.no = no; v.st = $("vSt").value; v.note = $("vNote").value.trim(); vEditId = null;
+        v.no = no; v.type = $("vType").value.trim(); v.st = $("vSt").value; v.note = $("vNote").value.trim(); vEditId = null;
       } else if (act === "vdel") {
         if (vConfirm === v.id) { state.vehicles = state.vehicles.filter(function (x) { return x !== v; }); vConfirm = null; }
         else { vConfirm = v.id; render(); return; }
@@ -551,7 +561,7 @@ form.add select { flex: 1 1 150px; }
     } else if (f === "vForm" && i >= 0) {
       var vn = $("vAddNo").value.trim();
       if (!vn) return;
-      state.vehicles.push({ id: state.vnext++, dept: state.depts[i], no: vn, st: $("vAddSt").value, note: $("vAddNote").value.trim() });
+      state.vehicles.push({ id: state.vnext++, dept: state.depts[i], type: $("vAddType").value.trim(), no: vn, st: $("vAddSt").value, note: $("vAddNote").value.trim() });
       render();
     } else if (f === "addForm" && i >= 0) {
       var name = $("addName").value.trim();
